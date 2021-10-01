@@ -22,11 +22,14 @@ class Crud extends CI_Controller
 			$name=$this->input->post('name');
 			$email=$this->input->post('email');
 			$password=$this->input->post('password');
-			$this->Crud_model->saverecords($name,$email,$password);	
-			echo json_encode(array(
-				"statusCode"=>200
-			));
-            redirect('crud/login');
+			$saveRecord = $this->Crud_model->saverecords($name,$email,$password);
+			if($saveRecord != 'failed'){
+				echo 'success';
+			}else{
+				echo 'failed';
+			}
+			
+            //redirect('crud/login');
 		} 
 	}
 

@@ -13,9 +13,11 @@
 <div class="container">
 <h1 align="center"> SIGN UP </h1>
   <h2> Enter Data</h2>
-	<div class="alert alert-success alert-dismissible" id="success" style="display:none;">
+  <div class="alert alert-success alert-dismissible" id="success" style="display:none;">
 	  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
 	</div>
+  <form id="signupForm" name="signupForm" method="POST">
+	
 	<div class="form-group">
       <label for="name">Name:</label>
       <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
@@ -29,6 +31,7 @@
       <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
     </div>
     <button type="submit" class="btn btn-primary" id="butsave">Submit</button><br><br>
+</form>
 <div class="d-flex justify-content-center links">
 	Already have an account?<?php echo anchor("crud/login", "Login"); ?>
 </div>
@@ -50,16 +53,29 @@ $(document).ready(function() {
 					password: password
 				},
 				cache: false,
-				success: function(dataResult){
-					var dataResult = JSON.parse(dataResult);
-					if(dataResult.statusCode==200){
-						$("#butsave").removeAttr("disabled");
-						$('#fupForm').find('input:text').val('');
+				success: function(response){
+					//console.log(response); return false; 
+					// var dataResult = JSON.parse(dataResult);
+					// if(dataResult.statusCode==200){
+					// 	$("#butsave").removeAttr("disabled");
+					// 	$('#fupForm').find('input:text').val('');
+					// 	$("#success").show();
+					// 	$('#success').html('Data added successfully !'); 						
+					// }
+					// else if(dataResult.statusCode==201){
+					//    alert("Error occured !");
+					// }
+					if(response == 'success'){
+						console.log('coming fine');
+						$('#signupForm').trigger("reset");
+
 						$("#success").show();
-						$('#success').html('Data added successfully !'); 						
-					}
-					else if(dataResult.statusCode==201){
-					   alert("Error occured !");
+						$("#butsave").removeAttr("disabled");
+						$('#success').html('Data added successfully !');
+						$('#signupForm').find('input:text').val(''); 	
+					}else{
+						console.log('error');
+						alert("Error occured !");
 					}
 					
 				}

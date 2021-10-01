@@ -5,7 +5,13 @@ class Crud_model extends CI_Model
 	{
 		$query="INSERT INTO `user`( `name`, `email`, `password`) 
 		VALUES ('$name','$email','$password')";
-		$this->db->query($query);
+		$addRecord = $this->db->query($query);
+
+		if($addRecord){
+			return 'added record';
+		}else{
+			return 'failed';
+		}
 	}
     function islogin($email, $password){  
 		$this->db->where('email', $email);
